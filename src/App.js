@@ -24,7 +24,6 @@ const App = () => {
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
   const [scoreDisplay, setScoreDisplay] = useState(0);
   const [touchStart, setTouchStart] = useState(null)
-  const [touchEnd, setTouchEnd] = useState(null)
   const minSwipeDistance = 50
 
   const checkForColumnOfFour = () => {
@@ -189,14 +188,12 @@ const App = () => {
   };
 
   const onTouchStart = (e) => {
-    setTouchEnd(null);
     dragStart(e);
-    dragDrop(e)
   }
 
   const onTouchMove = (e) => {
     dragDrop(e);
-    setTouchEnd(dragEnd())
+    dragEnd();
   }
 
   const createBoard = () => {
@@ -246,7 +243,9 @@ const App = () => {
               onDragOver={(e) => e.preventDefault()}
               onDragEnter={(e) => e.preventDefault()}
               onDragLeave={(e) => e.preventDefault()}
-              onDrop={dragDrop}
+            onDrop={dragDrop}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
             />
         ))}
       </div>
