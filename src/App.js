@@ -188,16 +188,16 @@ const App = () => {
     }
   };
 
-  const onTouchStart = (e) => {
-    setTouchEnd(null);
-    dragStart(e);
-    dragDrop(e)
-  }
+  // const onTouchStart = (e) => {
+  //   setTouchEnd(null);
+  //   dragStart(e);
+  //   dragDrop(e)
+  // }
 
-  const onTouchMove = (e) => {
-    dragDrop(e);
-    setTouchEnd(dragEnd())
-  }
+  // const onTouchMove = (e) => {
+  //   dragDrop(e);
+  //   setTouchEnd(dragEnd())
+  // }
 
   const createBoard = () => {
     const randomColorArrangement = [];
@@ -247,9 +247,6 @@ const App = () => {
               onDragEnter={(e) => e.preventDefault()}
               onDragLeave={(e) => e.preventDefault()}
               onDrop={dragDrop}
-            onDragEnd={dragEnd}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
             />
         ))}
       </div>
