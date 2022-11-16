@@ -187,15 +187,6 @@ const App = () => {
     }
   };
 
-  const onTouchStart = (e) => {
-    dragStart(e);
-  }
-
-  const onTouchMove = (e) => {
-    dragDrop(e);
-    dragEnd();
-  }
-
   const createBoard = () => {
     const randomColorArrangement = [];
     for (let i = 0; i < width * width; i++) {
@@ -244,8 +235,8 @@ const App = () => {
               onDragEnter={(e) => e.preventDefault()}
               onDragLeave={(e) => e.preventDefault()}
             onDrop={dragDrop}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
+            onTouchStart={dragStart}
+            onTouchMove={dragDrop}
             />
         ))}
       </div>
