@@ -188,12 +188,6 @@ const App = () => {
     }
   };
 
-//   const handleSwipe = (e) => {
-//     dragStart();
-//     dragDrop();
-//     dragEnd();
-//  }
-
   const onTouchStart = (e) => {
     setTouchEnd(null);
     dragStart(e);
@@ -242,7 +236,6 @@ const App = () => {
     <div className='app'>
       <div className='game'>
         {currentColorArrangement.map((candyColor, index) => (
-         
             <img
               key={index}
               src={candyColor}
@@ -254,9 +247,10 @@ const App = () => {
               onDragEnter={(e) => e.preventDefault()}
               onDragLeave={(e) => e.preventDefault()}
               onDrop={dragDrop}
-              onDragEnd={dragEnd}
+            onDragEnd={dragEnd}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
             />
-          
         ))}
       </div>
       <ScoreBoard score={scoreDisplay} />
