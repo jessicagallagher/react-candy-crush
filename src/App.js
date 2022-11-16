@@ -7,7 +7,6 @@ import purpleCandy from './images/purple-candy.png';
 import redCandy from './images/red-candy.png';
 import yellowCandy from './images/yellow-candy.png';
 import blank from './images/blank.png';
-import ReactTouchEvents from 'react-touch-events'
 
 const width = 8;
 const candyColors = [
@@ -24,6 +23,9 @@ const App = () => {
   const [squareBeingDragged, setSquareBeingDragged] = useState(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
   const [scoreDisplay, setScoreDisplay] = useState(0);
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
+  const minSwipeDistance = 50
 
   const checkForColumnOfFour = () => {
     for (let i = 0; i <= 39; i++) {
@@ -186,11 +188,22 @@ const App = () => {
     }
   };
 
-  const handleSwipe = (e) => {
-    dragStart();
-    dragDrop();
-    dragEnd();
- }
+//   const handleSwipe = (e) => {
+//     dragStart();
+//     dragDrop();
+//     dragEnd();
+//  }
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    dragStart(e);
+    dragDrop(e)
+  }
+
+  const onTouchMove = (e) => {
+    dragDrop(e);
+    setTouchEnd(dragEnd())
+  }
 
   const createBoard = () => {
     const randomColorArrangement = [];
@@ -229,7 +242,7 @@ const App = () => {
     <div className='app'>
       <div className='game'>
         {currentColorArrangement.map((candyColor, index) => (
-          <ReactTouchEvents onSwipe={handleSwipe}>
+         
             <img
               key={index}
               src={candyColor}
@@ -243,7 +256,7 @@ const App = () => {
               onDrop={dragDrop}
               onDragEnd={dragEnd}
             />
-          </ReactTouchEvents>
+          
         ))}
       </div>
       <ScoreBoard score={scoreDisplay} />
