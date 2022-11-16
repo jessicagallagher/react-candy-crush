@@ -23,8 +23,6 @@ const App = () => {
   const [squareBeingDragged, setSquareBeingDragged] = useState(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
   const [scoreDisplay, setScoreDisplay] = useState(0);
-  const [touchStart, setTouchStart] = useState(null)
-  const minSwipeDistance = 50
 
   const checkForColumnOfFour = () => {
     for (let i = 0; i <= 39; i++) {
@@ -187,6 +185,18 @@ const App = () => {
     }
   };
 
+  const touchStart = (e) => {
+    dragStart();
+  };
+
+  const touchMove = (e) => {
+    dragDrop();
+  };
+
+  const touchEnd = (e) => {
+    dragEnd();
+  };
+
   const createBoard = () => {
     const randomColorArrangement = [];
     for (let i = 0; i < width * width; i++) {
@@ -224,20 +234,19 @@ const App = () => {
     <div className='app'>
       <div className='game'>
         {currentColorArrangement.map((candyColor, index) => (
-            <img
-              key={index}
-              src={candyColor}
-              alt={candyColor}
-              data-id={index}
-              draggable={true}
-              onDragStart={dragStart}
-              onDragOver={(e) => e.preventDefault()}
-              onDragEnter={(e) => e.preventDefault()}
-              onDragLeave={(e) => e.preventDefault()}
+          <img
+            key={index}
+            src={candyColor}
+            alt={candyColor}
+            data-id={index}
+            draggable={true}
+            onDragStart={dragStart}
+            onDragOver={(e) => e.preventDefault()}
+            onDragEnter={(e) => e.preventDefault()}
+            onDragLeave={(e) => e.preventDefault()}
             onDrop={dragDrop}
-            onTouchStart={dragStart}
-            onTouchMove={dragDrop}
-            />
+            onDragEnd={dragEnd}
+          />
         ))}
       </div>
       <ScoreBoard score={scoreDisplay} />
