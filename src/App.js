@@ -7,6 +7,7 @@ import purpleCandy from './images/purple-candy.png';
 import redCandy from './images/red-candy.png';
 import yellowCandy from './images/yellow-candy.png';
 import blank from './images/blank.png';
+import { ReactTouchEvents } from 'react-touch-events';
 
 const width = 8;
 const candyColors = [
@@ -222,22 +223,26 @@ const App = () => {
     <div className='app'>
       <div className='game'>
         {currentColorArrangement.map((candyColor, index) => (
-          <img
+          <ReactTouchEvents
             key={index}
-            src={candyColor}
-            alt={candyColor}
-            data-id={index}
-            draggable={true}
-            onDragStart={dragStart}
-            onDragOver={(e) => e.preventDefault()}
-            onDragEnter={(e) => e.preventDefault()}
-            onDragLeave={(e) => e.preventDefault()}
-            onDrop={dragDrop}
-            onDragEnd={dragEnd}
             onTouchStart={dragStart}
             onTouchMove={dragDrop}
             onTouchEnd={dragEnd}
-          />
+          >
+            <img
+              key={index}
+              src={candyColor}
+              alt={candyColor}
+              data-id={index}
+              draggable={true}
+              onDragStart={dragStart}
+              onDragOver={(e) => e.preventDefault()}
+              onDragEnter={(e) => e.preventDefault()}
+              onDragLeave={(e) => e.preventDefault()}
+              onDrop={dragDrop}
+              onDragEnd={dragEnd}
+            />
+          </ReactTouchEvents>
         ))}
       </div>
       <ScoreBoard score={scoreDisplay} />
